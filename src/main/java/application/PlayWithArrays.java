@@ -305,29 +305,46 @@ public class PlayWithArrays {
 	 * @return all prime numbers filtered from the input
 	 */
 	public static int[] getPrimeNumbers(int[] nums) {
-		boolean[] primeCheck = new boolean[nums.length];
-		// count how many non-prime numbers
-		int noPrimeCounter = 0;
+		// initialise array for prime checking
+		boolean[] nonPrimeCheck = new boolean[nums.length];
 
+		/*
+		 * initialise counter for non-primes and counter for current prime written to
+		 * new array
+		 */
+		int noPrimeCounter = 0, primesCount = 0;
+
+		// iterate through all numbers
 		for (int i = 0; i < nums.length; i++) {
-			// set every non-prime number equals 0
-			for (int j = 2; j < nums[i]; j++) {
-				if (nums[i] % j == 0) {
-					primeCheck[i] = true;
+			if (nums[i] == 2 || nums[i] == 3) { // 2,3 are always a prime
+			} else if (nums[i] == 1 || nums[i] % 2 == 0) { // 1 and even numbers are never prime
+				//
+				nonPrimeCheck[i] = true;
+				noPrimeCounter++;
+			}
+			/*
+			 * loop through all numbers from 3 to smaller than number to check
+			 */
+			for (int j = 3; j < nums[i]; j = j + 2) {
+				if (nums[i] % j == 0) { // if number to check can be divided by current number => no prime
+					nonPrimeCheck[i] = true;
 					noPrimeCounter++;
 					break;
 				}
 			}
 		}
-		// new array with adjusted length based on prime numbers
+		// initialise new array with adjusted length according to amount of prime
+		// numbers in given array
 		int[] primes = new int[nums.length - noPrimeCounter];
-		// counter for the position of items in primesFinal
-		int primesCount = 0;
 
-		// only write primes to new array
+		/*
+		 * loop to write only primes to new array
+		 */
 		for (int i = 0; i < nums.length; i++) {
-			if (primeCheck[i]) {
+			if (nonPrimeCheck[i]) {
+				// do nothing, if number is not prime
 			} else {
+				// write to array, if number is prime
 				primes[primesCount] = nums[i];
 				primesCount++;
 			}
