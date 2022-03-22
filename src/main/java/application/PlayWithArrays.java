@@ -7,7 +7,7 @@ public class PlayWithArrays {
 	public static void main(String[] args) {
 		System.out.println("Hello Arrays");
 
-		int[] nums = { 1, 4, 8 };
+		int[] nums = { 4, 6, 8, 10 };
 		int target = 5;
 
 		System.out.println(Arrays.toString(twoSum(nums, target)));
@@ -15,6 +15,11 @@ public class PlayWithArrays {
 		int[] nums1 = { 1, 3, 5, 7 };
 		int[] nums2 = { 2, 4, 6, 8 };
 		System.out.println(findMedianSortedArrays(nums1, nums2));
+
+		int[] prices = { 5, 2, 2, 7, 1 };
+		System.out.println(maxProfit(prices));
+
+		System.out.println(Arrays.toString(getPrimeNumbers(nums)));
 	}
 
 	/**
@@ -140,7 +145,31 @@ public class PlayWithArrays {
 	 * @return maximum profit, if you cannot achieve profit return 0
 	 */
 	public static int maxProfit(int[] prices) {
-		return 0;
+		// initializing necessary ints
+		int min = Integer.MAX_VALUE;
+		int max = Integer.MIN_VALUE;
+		int positionMin = 0;
+		int positionMax = 0;
+		// find minimum and its position
+		for (int i = 0; i < prices.length; i++) {
+			if (prices[i] < min) {
+				min = prices[i];
+				positionMin = i;
+			}
+		}
+		// if the minimum is on the last day, return 0
+		if (positionMin == prices.length) {
+			return 0;
+		}
+		// find maximum and its position
+		for (int i = positionMin; i < prices.length; i++) {
+			if (prices[i] > max) {
+				max = prices[i];
+				positionMax = i;
+			}
+		}
+		// return profit (gains - expenses)
+		return prices[positionMax] - prices[positionMin];
 	}
 
 	/**
@@ -241,6 +270,7 @@ public class PlayWithArrays {
 	 *         false if every element is distinct
 	 */
 	public static boolean containsDuplicate(int[] nums) {
+
 		return false;
 	}
 
@@ -263,7 +293,33 @@ public class PlayWithArrays {
 	 * @return all prime numbers filtered from the input
 	 */
 	public static int[] getPrimeNumbers(int[] nums) {
-		return null;
+		// count how many non-prime numbers
+		int noPrimeCounter = 0;
+		for (int i = 0; i < nums.length; i++) {
+			// set every non-prime number equals 0
+			for (int j = 2; j < nums[i]; j++) {
+				if (nums[i] % j == 0) {
+					nums[i] = 0;
+					noPrimeCounter++;
+					break;
+				}
+			}
+
+		}
+		// counter for the position of items in primesFinal
+		int counter2 = 0;
+		// new array with adjusted length based on prime numbers
+		int[] primesFinal = new int[nums.length - noPrimeCounter];
+		// pass every number above 0
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i] > 0) {
+				primesFinal[counter2] = nums[i];
+				counter2++;
+
+			}
+		}
+
+		return primesFinal;
 	}
 
 }
