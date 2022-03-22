@@ -296,6 +296,7 @@ public class PlayWithArrays {
 		boolean[] primeCheck = new boolean[nums.length];
 		// count how many non-prime numbers
 		int noPrimeCounter = 0;
+
 		for (int i = 0; i < nums.length; i++) {
 			// set every non-prime number equals 0
 			for (int j = 2; j < nums[i]; j++) {
@@ -305,22 +306,22 @@ public class PlayWithArrays {
 					break;
 				}
 			}
-
 		}
-		// counter for the position of items in primesFinal
-		int counter2 = 0;
 		// new array with adjusted length based on prime numbers
-		int[] primesFinal = new int[nums.length - noPrimeCounter];
-		// pass every number above 0
+		int[] primes = new int[nums.length - noPrimeCounter];
+		// counter for the position of items in primesFinal
+		int primesCount = 0;
+
+		// only write primes to new array
 		for (int i = 0; i < nums.length; i++) {
 			if (primeCheck[i]) {
-				primesFinal[counter2] = nums[i];
-				counter2++;
-
+			} else {
+				primes[primesCount] = nums[i];
+				primesCount++;
 			}
 		}
 
-		return primesFinal;
+		return primes;
 	}
 
 }
