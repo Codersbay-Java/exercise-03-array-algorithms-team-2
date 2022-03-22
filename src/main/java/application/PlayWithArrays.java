@@ -293,13 +293,14 @@ public class PlayWithArrays {
 	 * @return all prime numbers filtered from the input
 	 */
 	public static int[] getPrimeNumbers(int[] nums) {
+		boolean[] primeCheck = new boolean[nums.length];
 		// count how many non-prime numbers
 		int noPrimeCounter = 0;
 		for (int i = 0; i < nums.length; i++) {
 			// set every non-prime number equals 0
 			for (int j = 2; j < nums[i]; j++) {
 				if (nums[i] % j == 0) {
-					nums[i] = 0;
+					primeCheck[i] = true;
 					noPrimeCounter++;
 					break;
 				}
@@ -312,7 +313,7 @@ public class PlayWithArrays {
 		int[] primesFinal = new int[nums.length - noPrimeCounter];
 		// pass every number above 0
 		for (int i = 0; i < nums.length; i++) {
-			if (nums[i] > 0) {
+			if (primeCheck[i]) {
 				primesFinal[counter2] = nums[i];
 				counter2++;
 
