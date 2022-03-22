@@ -1,9 +1,20 @@
 package application;
 
+import java.util.Arrays;
+
 public class PlayWithArrays {
 
 	public static void main(String[] args) {
 		System.out.println("Hello Arrays");
+
+		int[] nums = { 1, 4, 8 };
+		int target = 5;
+
+		System.out.println(Arrays.toString(twoSum(nums, target)));
+
+		int[] nums1 = { 1, 3, 5, 7 };
+		int[] nums2 = { 2, 4, 6, 8 };
+		System.out.println(findMedianSortedArrays(nums1, nums2));
 	}
 
 	/**
@@ -34,7 +45,25 @@ public class PlayWithArrays {
 	 * @return indices of the two numbers such that they add up to target.
 	 */
 	public static int[] twoSum(int[] nums, int target) {
-		return null;
+		// initialise return array for exactly 2 numbers within an array (nums) that add
+		// up to target
+		int[] returnArray = new int[2];
+		// initialise counter for current return array value
+		int n = 0;
+
+		// check every item in the array
+		for (int i = 0; i < nums.length; i++) {
+			if (target - nums[i] >= 0) { // if target-item < 0
+				returnArray[n] = i; // write current item placement to return array
+				target = target - nums[i]; // override target with target- current item (only happens if result is >= 0)
+				n++; // add 1 to return array value counter
+				if (n > 1) { // if array counter reaches the limit (both return array values have been
+								// written to) -> exit loop
+					break;
+				}
+			}
+		}
+		return returnArray;
 	}
 
 	/**
@@ -58,7 +87,30 @@ public class PlayWithArrays {
 	 * @return the median of two sorted arrays.
 	 */
 	public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-		return 1.0;
+
+		// merge arrays into one array
+		int[] merged = new int[nums1.length + nums2.length];
+
+		for (int i = 0; i < merged.length; i++) {
+			if (i < nums1.length) {
+				merged[i] = nums1[i];
+			} else {
+				merged[i] = nums2[i - nums1.length];
+			}
+		}
+
+		// sort merged array
+		Arrays.sort(merged);
+
+		// find array centre
+		int centre = merged.length / 2;
+
+		// check if array length is even
+		if (merged.length % 2 == 0) { // if even, return both middle numbers
+			return (merged[centre - 1] + merged[centre]) / 2.0;
+		}
+		// if odd, return centre item only
+		return merged[centre];
 	}
 
 	/**
