@@ -7,7 +7,7 @@ public class PlayWithArrays {
 	public static void main(String[] args) {
 		System.out.println("Hello Arrays");
 
-		int[] nums = { 4, 6, 8, 10 };
+		int[] nums = { 1, 1, 1, 3, 3, 4, 3, 2, 4, 2 };
 		int target = 5;
 
 		System.out.println(Arrays.toString(twoSum(nums, target)));
@@ -19,6 +19,7 @@ public class PlayWithArrays {
 		int[] prices = { 5, 2, 2, 7, 1 };
 		System.out.println(maxProfit(prices));
 
+		System.out.println(containsDuplicate(nums));
 		System.out.println(Arrays.toString(getPrimeNumbers(nums)));
 	}
 
@@ -270,7 +271,18 @@ public class PlayWithArrays {
 	 *         false if every element is distinct
 	 */
 	public static boolean containsDuplicate(int[] nums) {
+		int[] compare = new int[nums.length];
+		int n = 0;
 
+		for (int i = 0; i < nums.length; i++) {
+			for (int j = 0; j < compare.length; j++) {
+				if (nums[i] == compare[j]) {
+					return true;
+				}
+			}
+			compare[n] = nums[i];
+			n++;
+		}
 		return false;
 	}
 
